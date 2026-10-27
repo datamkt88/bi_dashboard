@@ -1,0 +1,1 @@
+EVALUATE SELECTCOLUMNS(FILTER(view_CustomerProfile, view_CustomerProfile[VipLevel]>=2 && view_CustomerProfile[SiteName] IN {"Nova88","Goal123","Bwing"}), "c",view_CustomerProfile[CustId], "v",view_CustomerProfile[VipLevel], "s",view_CustomerProfile[SiteName], "rg",view_CustomerProfile[RegTime_utc8])

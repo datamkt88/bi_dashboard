@@ -1,0 +1,165 @@
+WS_Customer customer[SiteName],WS_Customer customer[CurrencyId],WS_Customer customer[MarketingGroup],WS_Customer customer[MarketingChannel],WS_Customer customer[MarketingType],[Depr],[RD]
+Goal123,51,Internal,Paid Media,Meta,307,13
+Nova88,15,Organic,Direct,,1284,1193
+Goal123,51,Organic,Direct,,1053,944
+Nova88,2,Organic,Direct,,1148,1095
+Nova88,4,Organic,Direct,,702,657
+Goal123,51,CreditSite,CreditSite,,522,516
+Bwing,51,Affiliate,Affiliate,,70,69
+Nova88,4,Affiliate,Affiliate,,524,414
+Nova88,15,External,Paid Media,AsianBookie,58,57
+Nova88,15,External,PPC,Snackvideo,176,37
+Goal123,51,Organic,Google,,392,385
+Bwing,51,Internal,KOL,Live Stream,31,10
+Nova88,15,Organic,Google,,980,914
+Nova88,4,CreditSite,CreditSite,,161,156
+Nova88,4,Internal,Paid Media,Meta,81,76
+Nova88,2,External,Media Buy,Livescore,31,31
+Goal123,51,Internal,KOL/Livestream,Ling Ling,77,10
+Nova88,51,Internal,Paid Media,Meta,335,34
+Nova88,15,Affiliate,Affiliate,,667,404
+Nova88,2,CreditSite,CreditSite,,230,224
+Nova88,15,Internal,SEO,SEO,338,196
+Bwing,51,Organic,Direct,,672,538
+Goal123,51,Affiliate,Affiliate,,110,79
+Nova88,2,Organic,Google,,314,307
+Bwing,51,Organic,Google,,223,211
+Nova88,15,External,Paid Media,Slot Tournaments,83,83
+Nova88,61,External,KOL/ Live Stream,Winner Media,35,8
+Bwing,51,CreditSite,CreditSite,,422,396
+Goal123,51,External,Paid Media,Tipster,43,42
+Nova88,4,External,Media Buy,Livescore,130,112
+Nova88,51,Internal,PPC,TikTok,34,11
+Nova88,74,External,Paid Media,Comm Ads,9,8
+Nova88,15,Internal,Paid Media,Meta,95,95
+Nova88,2,Internal,SEO,SEO,155,152
+Bwing,51,Internal,Facebook,Advertising,109,98
+Nova88,61,Affiliate,Affiliate,,10,10
+Nova88,51,Organic,Direct,,175,95
+Nova88,51,Internal,KOL/Livestream,Ling Ling,70,9
+Bwing,51,External,Media Buy,Paid,28,23
+Nova88,51,Affiliate,Affiliate,,62,30
+Nova88,2,External,SEO,SEO,237,225
+Nova88,15,External,PPC,TikTok,232,54
+Nova88,51,External,Paid Media,Nova Sports,2,2
+Nova88,2,Affiliate,Affiliate,,88,77
+Nova88,51,Internal,Live Stream,Velotv Streaming,9,4
+Nova88,15,Internal,Media Buy,DSP,16,8
+Nova88,4,External,Paid Media,Opera,28,28
+Goal123,51,External,Media Buy,BTi,86,7
+Nova88,15,External,Media Buy,Tigoals,56,32
+Goal123,51,External,KOL/Livestream,Meta,4,4
+Nova88,4,External,Paid Media,Gizmodo,98,95
+Goal123,51,External,Paid Media,AsianBookie,28,26
+Nova88,15,Internal,Telesales,Telesales,14,14
+Nova88,51,External,Media Buy,BTi,95,4
+Nova88,2,Organic,App,,16,16
+Nova88,15,CreditSite,CreditSite,,69,64
+Bwing,51,External,Paid Media,Web Channel VN,23,23
+Nova88,4,External,Paid Media,Slot Tournaments,40,40
+Nova88,4,External,PPC,Meta,9,9
+Nova88,15,External,Paid Media,Score808,3,3
+Bwing,51,External,Paid Media,Tipster,42,42
+Bwing,51,External,Paid Media,AsianBookie,6,4
+Nova88,4,Organic,Google,,197,161
+Nova88,74,Organic,Direct,,16,13
+Bwing,51,External,Media Buy,BTi,114,11
+Nova88,51,Organic,Google,,44,23
+Nova88,2,Internal,Telesales,Telesales,14,4
+Nova88,15,External,PPC,Meta,6,5
+Nova88,4,External,Paid Media,Google Ad,1,1
+Nova88,51,External,Paid Media,Nhacaiuytin81,1,1
+Nova88,15,External,KOL/Live Stream,KOL/Live Stream,2,2
+Nova88,4,External,KOL/Live Stream,KOL/Live Stream,16,16
+Nova88,15,External,Paid Media,Opera,2,2
+Nova88,2,External,Paid Media,AsianBookie,26,26
+Nova88,2,External,Paid Media,Slot Tournaments,6,6
+Goal123,51,External,Paid Media,Meta,7,7
+Goal123,51,Internal,PPC,TikTok,39,15
+Nova88,4,Internal,Social Media,Meta,8,8
+Nova88,15,External,Brand Awareness,Comm Ads,10,10
+Goal123,51,External,Paid Media,Telegram,1,1
+Nova88,4,External,Social Media,X,77,8
+Nova88,51,External,Paid Media,AsianBookie,15,13
+Nova88,51,External,Paid Media,Tipster,27,25
+Nova88,51,Organic,App,,2,2
+Nova88,4,External,Brand Awareness,CommAd,10,10
+Nova88,4,External,SEO,SEO,13,10
+Nova88,15,External,SEO,SEO,9,9
+Nova88,4,External,Paid Media,AsianBookie,11,11
+Nova88,74,Organic,Google,,13,11
+Nova88,2,Internal,Paid Media,Meta,14,13
+Nova88,4,External,Paid Media,BVG,11,11
+Nova88,15,Organic,App,,12,12
+Nova88,15,Internal,Social Media,Telegram,9,9
+Goal123,51,External,Paid Media,media buy,2,2
+Nova88,2,External,Paid Media,Meta,9,9
+Nova88,4,External,Paid Media,OK Group 228,3,3
+Nova88,51,External,Media Buy,Livescore,1,1
+Nova88,61,Organic,Direct,,19,18
+Nova88,2,External,Brand Awareness,CommAd,1,1
+Nova88,51,External,SEO,SEO,10,9
+Nova88,13,CreditSite,CreditSite,,2,
+Nova88,2,Internal,SEO,nova88.me,14,12
+Nova88,15,Internal,Media Buy,Telegram Prediction Bot,3,1
+Nova88,2,Internal,Social Media,Telegram,5,4
+Nova88,4,Internal,Telesales,Telesales,4,4
+Nova88,51,Internal,SEO,SEO,1,1
+Nova88,74,External,Paid Media,Adsolution,3,3
+Nova88,4,External,Paid Media,thscore,1,1
+Nova88,4,External,Paid Media,Meta Soy,4,4
+Bwing,51,Organic,App,,8,7
+Nova88,4,Organic,App,,12,11
+Nova88,4,Internal,SEO,nova88official.com,1,1
+Nova88,13,Organic,Direct,,1,1
+Goal123,51,Organic,App,,9,9
+Nova88,61,Organic,Google,,3,3
+Nova88,4,Internal,Social Media,Telegram,3,3
+Nova88,15,External,PPC,Google,2,2
+Nova88,15,Internal,PPC,Reacheffect,5,2
+Nova88,51,External,Paid Media,Comm Ads,5,3
+Nova88,2,Internal,Social Media,Meta,4,3
+Nova88,51,External,KOL/Live Stream,KOL/Live Stream,2,2
+Nova88,51,Internal,Social Media,Telegram,6,6
+Nova88,2,External,Paid Media,Comm Ads,2,2
+Nova88,74,CreditSite,CreditSite,,1,1
+Nova88,15,External,Brand Awareness,CommAd,2,2
+Nova88,2,External,KOL/Live Stream,KOL/Live Stream,4,4
+Nova88,15,Internal,Social Media,Meta,1,1
+Nova88,2,Internal,PPC,Propeller Ads,1,
+Goal123,51,Internal,KOL/Livestream,Yiyi,3,3
+Nova88,51,External,Telesales,Telesales,2,2
+Nova88,61,Internal,Telesales,In-House,1,1
+Nova88,13,External,SEO,SEO,1,
+Nova88,4,External,PPC,Google,3,2
+Nova88,2,External,Paid Media,Tom188,3,3
+Bwing,51,External,Media Buy,media buy,10,9
+Nova88,4,External,Paid Media,Comm Ads,3,3
+Goal123,51,External,Paid Media,OK Group 228,1,1
+Nova88,74,Internal,Paid Media,Meta,2,2
+Nova88,15,Internal,SEO,nova88official.com,3,2
+Nova88,15,Internal,SEO,nova88.me,1,1
+Bwing,51,Internal,Site,Organic,9,9
+Goal123,51,External,Paid Media,Cadovn Forum,1,1
+Nova88,4,Internal,Telegram,Organic,6,5
+Nova88,15,External,Paid Media,OK Group 228,1,1
+Nova88,4,Internal,PPC,Propeller Ads,1,
+Bwing,51,External,SEO,Paid,1,1
+Nova88,15,External,Media Buy,808Bola,1,
+Nova88,2,External,Paid Media,Score808,2,2
+Nova88,74,Internal,SEO,nova88.me,1,1
+Nova88,4,External,Social Media,LINE,1,1
+Nova88,4,External,Paid Media,RankThai,1,1
+Nova88,2,Internal,Facebook,Organic,1,1
+Nova88,2,External,Paid Media,GX,1,1
+Nova88,51,External,Brand Awareness,CommAd,1,1
+Nova88,15,External,Paid Media,Adsolution,1,1
+Nova88,2,External,Paid Media,OG28,1,1
+Nova88,74,Affiliate,Affiliate,,2,1
+Nova88,4,Internal,SEO,nova88.me,1,1
+Goal123,51,Internal,Social Media,Telegram,2,2
+Nova88,4,External,Paid Media,Adsok,1,1
+Nova88,15,External,PPC,LGaming,1,
+Nova88,2,Internal,SEO,nova88official.com,1,1
+Goal123,51,External,Paid Media,Livestream,1,1
+Nova88,15,External,Paid Media,Meta,1,1

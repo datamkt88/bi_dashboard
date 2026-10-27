@@ -1,0 +1,74 @@
+Queries for D=2026-10-27  CUT=2026-10-06
+
+exec               MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: [m],[Si],[Cu],[Ci],[NRU],[FDU],[Act],[Ret],[Depr],[RD],[Tx],[D],[FD],[W],[DF],[WF],[CM],[VB],[SB],[CB],[LB],[WL],[BO],[RB],[PRO],[ADJ],[pad]
+mkt                MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: [m],[Si],[Cu],[Ci],[MktNRU],[MktFDU],[MktDep],[MktGGR],[pad]
+pc_oct             MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: WS_Customer customer[CustId],[AffiliateName],[CurrencyId],[RegTime_utc8],[NRU],[FDU],[Act],[Tx],[RD],[Dep],[FD],[W],[DF],[WF],[CM],[VB],[SB],[CB],[LB],[WL],[BO],[RB],[RT],[PRO],[ADJ]
+drows              MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: FullSummary[ReportDate],customer[AffiliateName],customer[CurrencyId],[NRU],[FDU],[Act],[Tx],[Dep],[FD],[W],[VB],[G1],[BO],[RB],[PRO],[ADJ]
+srows              MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: Acq[ReportDate],Acq[Affiliate User],[Sp],[Im],[Cl],[n]   VERIFY Impression/Click column names
+aff                MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: [a],[code],[ch],[src],[mkt],[site],[pic],[pf],[own],[pad]   VERIFY column names except AffiliateName/Channel/Market
+bonus              MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: FullSummary[ReportDate],FullSummary[CustId],[b]
+vipm_fd            MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: FullSummary[CustId],FullSummary[ReportDate],customer[SiteName],customer[CurrencyId],[f]
+vipm_nr            MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: FullSummary[CustId],FullSummary[ReportDate],[n]
+mg_m               MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: [k],[d0],[d1],[d2],[d3],[d4],[NRU],[FDU],[Act],[Depr],[RD],[Dep],[FD],[W],[VB],[WL],[BO],[RB],[PRO],[ADJ]
+mg_d               MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: FullSummary[ReportDate],customer[SiteName],[CurrencyId],[MarketingGroup],[MarketingChannel],[MarketingType],[NRU],[FDU],[Act],[Depr],[RD],[Dep],[FD],[W],[VB],[WL],[BO],[RB],[PRO],[ADJ]
+RDoct              MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: customer[SiteName],[CurrencyId],[MarketingGroup],[MarketingChannel],[MarketingType],[Depr],[RD],[pad]   (drop rows where Depr blank)
+RD_daily           MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: FullSummary[ReportDate],customer[SiteName],[CurrencyId],[MarketingGroup],[MarketingChannel],[MarketingType],[Depr],[RD]
+T                  PR  AI Report_Product (workspace B2C-AI)
+   expected header: [g],[k0],[k1],[wl],[vb],[p],[pad]
+C                  PR  AI Report_Product (workspace B2C-AI)
+   expected header: [g],[k0],[k1],[k2],[wl],[vb],[p]
+P                  PR  AI Report_Product (workspace B2C-AI)
+   expected header: [g],[k0],[k1],[k2],[wl],[vb],[p]
+V                  PR  AI Report_Product (workspace B2C-AI)
+   expected header: [g],[k0],[k1],[k2],[wl],[vb],[p]
+VC                 PR  AI Report_Product (workspace B2C-AI)
+   expected header: [g],[k0],[k1],[k2],[k3],[wl],[vb],[p]
+VP                 PR  AI Report_Product (workspace B2C-AI)
+   expected header: [g],[k0],[k1],[k2],[k3],[wl],[vb],[p]
+pcM                PR  AI Report_Product (workspace B2C-AI)
+   expected header: TpBet[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
+pcD1               PR  AI Report_Product (workspace B2C-AI)
+   expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
+pcD2               PR  AI Report_Product (workspace B2C-AI)
+   expected header: same as pcD1
+pcD3               PR  AI Report_Product (workspace B2C-AI)
+   expected header: same as pcD1
+list1              PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]   VERIFY Saba_Id/StatusName/LastDepositDate_utc8
+list2              PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]   VERIFY Saba_Id/StatusName/LastDepositDate_utc8
+tags               PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [c],[t]   VERIFY CustTagSummary[CustId]
+l2                 PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [c],[v],[s],[rg]
+RM                 PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [k],[si],[cu],[v],[nru],[fdu],[fd7],[dep],[nd],[wl],[bo],[vb],[pad]
+FM                 PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [k],[si],[cu],[v],[fdu],[new],[one],[dep],[nd],[wl],[bo],[vb],[pad]
+FD_daily           PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [k],[si],[cu],[v],[fdu],[new],[one],[dep],[nd],[wl],[bo],[vb]
+base               PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: view[SiteName],view[Currency],view[VipLevel],[n],[t],[pad]   (drop rows where n blank)
+_missmap_TEMPLATE  PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [c],[mg],[mc],[ac],[an],[pad]   replace {IDS} with the ids in rNN/miss.txt (comma separated)
+_schema_PP         PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [t],[c]
+_schema_MK_acq     MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: [t],[c]
+_schema_MK_master  MK  AI Report_Marketing (workspace B2C-AI)
+   expected header: [t],[c]
+_schema_PP_tags    PP  Player Profile 360 (workspace B2C-Player Profile)
+   expected header: [t],[c]

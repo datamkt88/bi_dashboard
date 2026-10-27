@@ -1,0 +1,1 @@
+EVALUATE SUMMARIZECOLUMNS('Acquisition Report Consolidate New'[ReportDate],'Acquisition Report Consolidate New'[Affiliate User], "Sp", SUM('Acquisition Report Consolidate New'[Spend]), "Im", SUM('Acquisition Report Consolidate New'[Impression]), "Cl", SUM('Acquisition Report Consolidate New'[Click]), "n", COUNTROWS('Acquisition Report Consolidate New'))

@@ -1,0 +1,1 @@
+EVALUATE SUMMARIZECOLUMNS(view_CustomerProfile[SiteName],view_CustomerProfile[Currency],view_CustomerProfile[VipLevel], TREATAS({"Nova88","Goal123","Bwing"},view_CustomerProfile[SiteName]), "n", COUNTROWS(view_CustomerProfile), "t", CALCULATE(COUNTROWS(view_CustomerProfile),view_CustomerProfile[IsTest]=TRUE()), "pad",REPT("x",150))
