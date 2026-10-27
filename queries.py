@@ -10,8 +10,8 @@ D      = report date (data through D; D itself is the partial day)
 
 Each query lists: connection (MK / PR / PP), expected header, and a reference result in ref/
 (pulled 27 Oct 2026) so a new session can calibrate: run with D=2026-10-27 and compare.
-Queries marked VERIFY contain column names that were reconstructed, not copied from a
-saved query - if one errors, run queries/_schema_*.dax to see the real column names.
+All queries were calibrated against the 27 Oct 12:16 pulls on 27 Oct 16:25 (structure identical,
+only live intraday values differ). If one errors after a model change, run queries/_schema_*.dax.
 """
 import sys, os, datetime as dt
 D = dt.date.fromisoformat(sys.argv[1])
@@ -31,7 +31,7 @@ def months(n_back):                                     # list of (key,start,end
     return rows
 def dtab(rows,k='k'):
     return 'DATATABLE("%s",STRING,"s",DATETIME,"e",DATETIME,{%s})'%(k,','.join('{"%s",%s,%s}'%(a,d(b),d(c)) for a,b,c in rows))
-PAD = '"pad",REPT("x",150)'
+PAD = '"pad",REPT("x",400)'
 F="'WS_BIReport FullSummaryDailyMonthly_Output'"; C="'WS_Customer customer'"; T="'WS_BIReport TpBetRecordSummaryDailyMonthly_Output'"; V="view_CustomerProfile"
 SITES='TREATAS({"Nova88","Goal123","Bwing"}, %s[SiteName])'%C
 MASTER="TREATAS(VALUES('Acquisition Master Channel List'[AffiliateName]), %s[AffiliateName])"%C
@@ -55,11 +55,11 @@ dr_meas=[("NRU",f"SUM({F}[NRU_Flag])"),("FDU",f"SUM({F}[FDU_Flag])"),("Act",f"CA
 Q['drows']=('MK','FullSummary[ReportDate],customer[AffiliateName],customer[CurrencyId],[NRU],[FDU],[Act],[Tx],[Dep],[FD],[W],[VB],[G1],[BO],[RB],[PRO],[ADJ]',
   f"EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({F}[ReportDate],{C}[AffiliateName],{C}[CurrencyId], "+', '.join(f'"{n}", {e}' for n,e in dr_meas)+f"), {F}[ReportDate]>={d(MS)}, {F}[ReportDate]<{d(D1)}, {C}[RegTime_utc8]>=dt\"2025-01-01\", {SITES}, {MASTER})")
 A="'Acquisition Report Consolidate New'"
-Q['srows']=('MK','Acq[ReportDate],Acq[Affiliate User],[Sp],[Im],[Cl],[n]   VERIFY Impression/Click column names',
-  f'EVALUATE SUMMARIZECOLUMNS({A}[ReportDate],{A}[Affiliate User], "Sp", SUM({A}[Spend]), "Im", SUM({A}[Impression]), "Cl", SUM({A}[Click]), "n", COUNTROWS({A}))')
+Q['srows']=('MK','Acq[ReportDate],Acq[Affiliate User],[Sp],[Im],[Cl],[n]',
+  f'EVALUATE SUMMARIZECOLUMNS({A}[ReportDate],{A}[Affiliate User], "Sp", SUM({A}[Spend]), "Im", SUM({A}[Impressions]), "Cl", SUM({A}[Clicks/Views]), "n", COUNTROWS({A}))')
 L="'Acquisition Master Channel List'"
-Q['aff']=('MK','[a],[code],[ch],[src],[mkt],[site],[pic],[pf],[own],[pad]   VERIFY column names except AffiliateName/Channel/Market',
-  f'EVALUATE SELECTCOLUMNS({L}, "a",{L}[AffiliateName], "code",{L}[AffiliateCode], "ch",{L}[Channel], "src",{L}[Source], "mkt",{L}[Market], "site",{L}[Site], "pic",{L}[PIC], "pf",{L}[Platform], "own",{L}[Owner], {PAD})')
+Q['aff']=('MK','[a],[code],[ch],[src],[mkt],[site],[pic],[pf],[own],[pad]',
+  f'EVALUATE SELECTCOLUMNS({L}, "a",{L}[AffiliateName], "code",{L}[AffiliateCode], "ch",{L}[Channel], "src",{L}[Source], "mkt",{L}[Market], "site",{L}[SiteName], "pic",{L}[PIC], "pf",{L}[Platform], "own",{L}[Owner (Eg)], {PAD})')
 Q['bonus']=('MK','FullSummary[ReportDate],FullSummary[CustId],[b]',
   f'EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({F}[ReportDate],{F}[CustId], "b", SUM({F}[BonusAmount])), {F}[TableType]="Daily", {F}[BonusAmount]<>0, {F}[ReportDate]>={d(CUT)}, {F}[ReportDate]<{d(D1)})')
 Q['vipm_fd']=('MK','FullSummary[CustId],FullSummary[ReportDate],customer[SiteName],customer[CurrencyId],[f]',
@@ -91,20 +91,19 @@ for n,k,p in (('T',[],1),('C',['Category'],0),('P',['Product'],0),('V',['Provide
 PCC=','.join(f"{T}[{k}]" for k in ['CustId','SiteId','CurrencyId','Provider','Product'])
 PCM=f'"wl", SUM({T}[WinLossSummary]), "vb", SUM({T}[ValidBetSummary])'
 Q['pcM']=('PR','TpBet[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]',f'EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({PCC}, {PCM}), {T}[TableType]="Daily", {T}[ReportDate]>={d(MS)}, {T}[ReportDate]<{d(NMS)})')
-mid=CUT+dt.timedelta(10)
-Q['pcD1']=('PR','TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]',f'EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({T}[ReportDate],{PCC}, {PCM}), {T}[TableType]="Daily", {T}[ReportDate]>={d(CUT)}, {T}[ReportDate]<{d(min(mid,D1))})')
-if mid<D1:
-    m2=mid+dt.timedelta(11)
-    Q['pcD2']=('PR','same as pcD1',f'EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({T}[ReportDate],{PCC}, {PCM}), {T}[TableType]="Daily", {T}[ReportDate]>={d(mid)}, {T}[ReportDate]<{d(min(m2,D1))})')
-    if m2<D1: Q['pcD3']=('PR','same as pcD1',f'EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({T}[ReportDate],{PCC}, {PCM}), {T}[TableType]="Daily", {T}[ReportDate]>={d(m2)}, {T}[ReportDate]<{d(D1)})')
+# per-customer daily chunks: first 10 days from CUT, then 6-day chunks up to D (6 days ~3 MB, safe for the device bridge)
+bounds=[CUT,min(CUT+dt.timedelta(10),D1)]
+while bounds[-1]<D1: bounds.append(min(bounds[-1]+dt.timedelta(6),D1))
+for i,(s0,e0) in enumerate(zip(bounds,bounds[1:])):
+    Q[f'pcD{i+1}']=('PR','TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]',f'EVALUATE CALCULATETABLE(SUMMARIZECOLUMNS({T}[ReportDate],{PCC}, {PCM}), {T}[TableType]="Daily", {T}[ReportDate]>={d(s0)}, {T}[ReportDate]<{d(e0)})')
 # ---------------------------------------------------------------- PP = Player Profile 360
 LST=(f'"c",{V}[CustId], "sb",{V}[Saba_Id], "si",{V}[SiteName], "cu",{V}[CurrencyId], "rg",{V}[RegTime_utc8], "fd",{V}[FirstDepositDate_utc8], "lb",{V}[LastBettingDate_utc8], "ld",{V}[LastDepositDate_utc8], '
      f'"v",{V}[VipLevel], "st",{V}[StatusName], "dc",{V}[LT_DepositCnt], "t",{V}[IsTest], "vb",{V}[LT_EffectiveBet], "wl",{V}[LT_WinLoss], "dp",{V}[LT_Deposit], "nd",{V}[LT_NetDeposit]')
 COND=f'{V}[RegTime_utc8]>=dt"2026-07-01" || {V}[LastBettingDate_utc8]>={d(REF90)} || {V}[LastDepositDate_utc8]>={d(REF90)}'
 for n,c in (('list1',f'{V}[CustId]<=1750000'),('list2',f'{V}[CustId]>1750000')):
-    Q[n]=('PP','[c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]   VERIFY Saba_Id/StatusName/LastDepositDate_utc8',
+    Q[n]=('PP','[c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]',
           f'EVALUATE SELECTCOLUMNS(FILTER({V}, {c} && {V}[SiteName] IN {{"Nova88","Goal123","Bwing"}} && ({COND})), {LST})')
-Q['tags']=('PP','[c],[t]   VERIFY CustTagSummary[CustId]',
+Q['tags']=('PP','[c],[t]',
   f"EVALUATE CALCULATETABLE(SELECTCOLUMNS(CustTagSummary, \"c\", CustTagSummary[CustId], \"t\", CustTagSummary[TagName]), TREATAS(SELECTCOLUMNS(FILTER({V}, {V}[SiteName] IN {{\"Nova88\",\"Goal123\",\"Bwing\"}} && ({COND})), \"c\", {V}[CustId]), CustTagSummary[CustId]))")
 Q['l2']=('PP','[c],[v],[s],[rg]',f'EVALUATE SELECTCOLUMNS(FILTER({V}, {V}[VipLevel]>=2 && {V}[SiteName] IN {{"Nova88","Goal123","Bwing"}}), "c",{V}[CustId], "v",{V}[VipLevel], "s",{V}[SiteName], "rg",{V}[RegTime_utc8])')
 VM=f'TREATAS({{"Nova88","Goal123","Bwing"}},{V}[SiteName])'
@@ -121,7 +120,7 @@ Q['FM']=('PP','[k],[si],[cu],[v],[fdu],[new],[one],[dep],[nd],[wl],[bo],[vb],[pa
 Q['FD_daily']=('PP','[k],[si],[cu],[v],[fdu],[new],[one],[dep],[nd],[wl],[bo],[vb]',
   f'DEFINE VAR M = SELECTCOLUMNS(CALENDAR(dt"2026-07-01",{d(D)}),"k",FORMAT([Date],"yyyy-mm-dd"),"s",[Date],"e",[Date]+1)\nEVALUATE SELECTCOLUMNS(GENERATE(M, VAR s=[s] VAR e=[e] RETURN CALCULATETABLE(ADDCOLUMNS({SUMV},{FB}), {V}[FirstDepositDate_utc8]>=s, {V}[FirstDepositDate_utc8]<e, {VM})), {KEY},{FBs})')
 Q['base']=('PP','view[SiteName],view[Currency],view[VipLevel],[n],[t],[pad]   (drop rows where n blank)',
-  f'EVALUATE SUMMARIZECOLUMNS({V}[SiteName],{V}[Currency],{V}[VipLevel], {VM}, "n", COUNTROWS({V}), "t", CALCULATE(COUNTROWS({V}),{V}[IsTest]=TRUE()), {PAD})')
+  f'EVALUATE SUMMARIZECOLUMNS({V}[SiteName],{V}[Currency],{V}[VipLevel], {VM}, "n", COUNTROWS({V}), "t", CALCULATE(COUNTROWS({V}),{V}[IsTest]=TRUE()), "pad",REPT("x",2500))')
 Q['_missmap_TEMPLATE']=('PP','[c],[mg],[mc],[ac],[an],[pad]   replace {IDS} with the ids in rNN/miss.txt (comma separated)',
   f'EVALUATE CALCULATETABLE(SELECTCOLUMNS({V}, "c",{V}[CustId], "mg",{V}[MarketingGroup], "mc",{V}[MarketingChannel], "ac",{V}[AffCode], "an",{V}[AffiliateName], {PAD}), {V}[CustId] IN {{{{IDS}}}})')
 for n,t in (('_schema_PP','view_CustomerProfile'),('_schema_MK_acq','Acquisition Report Consolidate New'),('_schema_MK_master','Acquisition Master Channel List'),('_schema_PP_tags','CustTagSummary')):

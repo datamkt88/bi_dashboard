@@ -2,7 +2,7 @@
 
 This is a handoff pack. With it, any Claude conversation on any computer can refresh the **B2C Marketing & OP** dashboard: it pulls the data from Power BI, rebuilds the HTML, checks it, and publishes it.
 
-Last good build: **27 Oct 2026, data pulled 12:16 MYT**.
+Last good build: **27 Oct 2026, data pulled 16:25 MYT** (run folder `r27c`).
 
 ---
 
@@ -77,7 +77,7 @@ Run each `queries/<name>.dax` with `dax_query_operations` → `Execute`, `maxRow
 python3 grab.py /root/.claude/projects/<proj>/<session>/tool-results    # prints id | rows | header for each new pull
 ```
 
-Write `ids_rNN.json` with the same keys as `r27b/ids.json`: `date`, `time` (MK/PR pull time `HH:MM`), `time2` (PP pull time), then one id per pull. `pcD` is a list of 1 to 3 chunk ids, in date order.
+Write `ids_rNN.json` with the same keys as `r27c/ids.json`: `date`, `time` (MK/PR pull time `HH:MM`), `time2` (PP pull time), then one id per pull. `pcD` is a list of 1 to 3 chunk ids, in date order.
 
 | key | query | conn | key | query | conn |
 |---|---|---|---|---|---|
@@ -95,7 +95,7 @@ Write `ids_rNN.json` with the same keys as `r27b/ids.json`: `date`, `time` (MK/P
 ### 3.3 Make the run folder and build
 
 ```bash
-python3 newrun.py r27b r28 ids_r28.json   # previous folder -> new folder; prints every id/date swap. Check them.
+python3 newrun.py r27c r28 ids_r28.json   # previous folder -> new folder; prints every id/date swap. Check them.
 bash run.sh r28
 ```
 
@@ -165,23 +165,27 @@ If Power BI is unreachable, a sign-in is pending, or a validation line in 3.4 is
 
 ---
 
-## 4. Calibrate the queries on the first run in a new session
+## 4. Query calibration (done 27 Oct 2026 16:25)
 
-`queries.py` was rebuilt from saved query files and the result headers. The product queries (T, C, P, V, VC, VP, pcM, pcD), exec and mkt match the queries actually used, character for character. The rest were reconstructed. The ones marked **VERIFY** in INDEX.txt use column names that were never seen in a saved query:
+All 29 pulls in `queries.py` were run on 27 Oct 16:25 and compared with the 12:16 pulls:
 
-- `Acquisition Report Consolidate New[Impression]/[Click]`
-- the master-list columns other than AffiliateName/Channel/Market
-- `view_CustomerProfile[Saba_Id]/[StatusName]/[LastDepositDate_utc8]`
-- `CustTagSummary[CustId]`
+- Headers and row structure are identical.
+- Past months and days match apart from floating-point noise. MK/PR monthly September is identical.
+- The PP lifetime values and the last days differ only because they are live.
 
-First run in a new session:
+Four column names were corrected during calibration:
 
-1. `python3 queries.py 2026-10-27`, then run each query. Compare the header and row count with the reference pull in `raw/` (ids in `r27b/ids.json`). Run `python3 grab.py` on the new results and look at the first line.
-2. If a query errors on a column name, run the matching `queries/_schema_*.dax` to list the real columns. Fix `queries.py`, commit it to `pipeline`.
-3. Month totals for Sep and early Oct must match the reference exactly. The last few days can drift slightly.
-4. Then do the real run for today.
+- `Acquisition Report Consolidate New[Impressions]`
+- `Acquisition Report Consolidate New[Clicks/Views]`
+- master list `[SiteName]`
+- master list `[Owner (Eg)]`
 
----
+The full 16:25 build passed every check in 3.4. If a query errors after the model changes, run the matching `queries/_schema_*.dax` to list the real column names. Fix `queries.py` and commit it.
+
+Notes:
+
+- `base` (48 rows) needs a big pad (`REPT("x",2500)`) to be saved to a file. `queries.py` already does this.
+- `pcD` chunks are 10 days, then 6-day pieces. A 12-day chunk timed out once.
 
 ## 5. Month rollover (first run in November): not automated yet
 

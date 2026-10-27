@@ -9,9 +9,9 @@ pc_oct             MK  AI Report_Marketing (workspace B2C-AI)
 drows              MK  AI Report_Marketing (workspace B2C-AI)
    expected header: FullSummary[ReportDate],customer[AffiliateName],customer[CurrencyId],[NRU],[FDU],[Act],[Tx],[Dep],[FD],[W],[VB],[G1],[BO],[RB],[PRO],[ADJ]
 srows              MK  AI Report_Marketing (workspace B2C-AI)
-   expected header: Acq[ReportDate],Acq[Affiliate User],[Sp],[Im],[Cl],[n]   VERIFY Impression/Click column names
+   expected header: Acq[ReportDate],Acq[Affiliate User],[Sp],[Im],[Cl],[n]
 aff                MK  AI Report_Marketing (workspace B2C-AI)
-   expected header: [a],[code],[ch],[src],[mkt],[site],[pic],[pf],[own],[pad]   VERIFY column names except AffiliateName/Channel/Market
+   expected header: [a],[code],[ch],[src],[mkt],[site],[pic],[pf],[own],[pad]
 bonus              MK  AI Report_Marketing (workspace B2C-AI)
    expected header: FullSummary[ReportDate],FullSummary[CustId],[b]
 vipm_fd            MK  AI Report_Marketing (workspace B2C-AI)
@@ -43,15 +43,15 @@ pcM                PR  AI Report_Product (workspace B2C-AI)
 pcD1               PR  AI Report_Product (workspace B2C-AI)
    expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
 pcD2               PR  AI Report_Product (workspace B2C-AI)
-   expected header: same as pcD1
+   expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
 pcD3               PR  AI Report_Product (workspace B2C-AI)
-   expected header: same as pcD1
+   expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
 list1              PP  Player Profile 360 (workspace B2C-Player Profile)
-   expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]   VERIFY Saba_Id/StatusName/LastDepositDate_utc8
+   expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]
 list2              PP  Player Profile 360 (workspace B2C-Player Profile)
-   expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]   VERIFY Saba_Id/StatusName/LastDepositDate_utc8
+   expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]
 tags               PP  Player Profile 360 (workspace B2C-Player Profile)
-   expected header: [c],[t]   VERIFY CustTagSummary[CustId]
+   expected header: [c],[t]
 l2                 PP  Player Profile 360 (workspace B2C-Player Profile)
    expected header: [c],[v],[s],[rg]
 RM                 PP  Player Profile 360 (workspace B2C-Player Profile)

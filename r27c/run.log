@@ -1,0 +1,72 @@
+## 7 seg
+pc_month 2026-10 1793089519439  pc_day 13
+missing from segment map: 0 
+miss [] segs 850
+m {'T': 7684, 'C': 20306, 'P': 74000, 'V': 65626, 'VC': 72899, 'VP': 74065}
+d {'T': 36858, 'C': 77640, 'P': 189741, 'V': 171298, 'VC': 187213, 'VP': 189741}
+m T (126, 126, 0, [])
+d T (1052, 1052, 0, [])
+m C (1032, 1032, 0, [])
+d C (7276, 7276, 0, [])
+m P (6979, 6979, 0, [])
+d P (38658, 38658, 0, [])
+m V (5290, 5290, 0, [])
+d V (30541, 30541, 0, [])
+m VC (6616, 6616, 0, [])
+d VC (36777, 36777, 0, [])
+m VP (6998, 6998, 0, [])
+d VP (38658, 38658, 0, [])
+raw 33144215 gz 10731722 b64 14308964
+sep players 17267 top [[12, 1895357, 74330, 1749205, 16, 78, 285], [12, 1513599, 52266, 98716, 68, 88, 261]] bottom [[12, 646213, -86489, 1607960, 20, 100, 594], [12, 841756, -79464, 692170, 81, 100, 0]]
+rows m 233274 d 594347 custs 88521 b64 5516100
+## 8 vip
+vipm_fd 60999 + 3141  vipm_nr 276376 + 15118
+L2+ players 4564
+player rows 103496 ['1594612', 'Nova88_1594612', 'Nova88', '2']
+fdu rows 64140 nru rows 291494 ['1669931', '31/10/2025 12:00:00 AM', 'Nova88', '2'] ['1839254', '30/6/2026 12:00:00 AM']
+L2+ without cell 0
+2025-09 FDU cust rows 3681 exec 3681.0 | NRU 13744 13744.0
+2025-10 FDU cust rows 3462 exec 3462.0 | NRU 11036 11036.0
+2025-11 FDU cust rows 3814 exec 3814.0 | NRU 14843 14843.0
+2025-12 FDU cust rows 4237 exec 4237.0 | NRU 17911 17911.0
+2026-01 FDU cust rows 5764 exec 5764.0 | NRU 24004 24004.0
+2026-02 FDU cust rows 4206 exec 4206.0 | NRU 21885 21885.0
+2026-03 FDU cust rows 4079 exec 4079.0 | NRU 20400 20400.0
+2026-04 FDU cust rows 5200 exec 5200.0 | NRU 23270 23270.0
+2026-05 FDU cust rows 5604 exec 5604.0 | NRU 25999 25999.0
+2026-06 FDU cust rows 6839 exec 6839.0 | NRU 29215 29215.0
+2026-07 FDU cust rows 4668 exec 4668.0 | NRU 19679 19679.0
+2026-08 FDU cust rows 4602 exec 4602.0 | NRU 21163 21163.0
+2026-09 FDU cust rows 4246 exec 4246.0 | NRU 30955 30955.0
+2026-10 FDU cust rows 3738 exec 3738.0 | NRU 17390 17390.0
+saba mismatch 0 tags 70 status ['Running', 'Suspend', 'Lock', 'Closed']
+bytes 5761948 list 103496
+m 2026-08 NRU 21163.0 FDU 4602.0 neg []
+m 2026-09 NRU 30955.0 FDU 4246.0 neg []
+m 2026-10 NRU 17390.0 FDU 3738.0 neg []
+d 2026-10-25 NRU 1595.0 FDU 168.0 neg []
+d 2026-10-26 NRU 1257.0 FDU 185.0 neg []
+d 2026-10-27 NRU 836.0 FDU 70.0 neg []
+## 9 mg
+mismatches 0 months 2025-09 2026-10 days 2026-07-01 2026-10-27 119 segs 127 rows 2527 15186
+1128181
+m rows 2527 missing 2 Depr mismatch 0
+   2026-07 old RD 1464 new RD 12030 Depr 15234
+   2026-08 old RD 1384 new RD 11142 Depr 14368
+   2026-09 old RD 1318 new RD 11171 Depr 14107
+   2026-10 old RD 1202 new RD 11211 Depr 13747
+d rows 15186 missing 0 Depr mismatch 0
+   2026-10-24 old RD 334 new RD 3465 Depr 3624
+   2026-10-25 old RD 361 new RD 3479 Depr 3615
+   2026-10-26 old RD 348 new RD 3030 Depr 3181
+   2026-10-27 old RD 271 new RD 1869 Depr 1930
+## 10 final
+multi {72, 73}
+players 1907935 list 103496
+bytes 30229728
+mg enc  data-enc="gz"
+replaced 5 bytes 30230156
+## 11 check
+K2 Depositors · Sep 26 14,107 Vs Aug 26: 14,368 -261 · ▼ -1.82% | Deposits · Sep 26 $13.63M Vs Aug 26: $14.93M -$1.31M · ▼ -8.74% | Redeposit amount · Sep 26 $13.56M Vs Aug 26: $14.83M -$1.28M · ▼ -8.60% | Redepositors · Sep 26 11,171 Vs Aug 26: 11,142 +29 · ▲ 0.26% | Withdrawals · Sep 26 $11.21M Vs Aug 26: $12.15M -$935.9K · ▼ -7.70% | Net deposit · Sep 26 $2.42M Vs Aug 26: $2.79M -$369.3K · ▼ -13.26%
+errors []
+DONE
