@@ -1,0 +1,178 @@
+## 1 prep
+exec 270
+mkt 255
+aff 496
+T 503
+RM 231
+FM 231
+base 47
+RDoct 179
+l2 4564
+act 63228 cu 63982
+drows 4087
+## 2 exec
+2026-09 cells 9 diffs 0 
+2026-10 cells 9 diffs 138 Act BO CB CM D DF Depr FD FDU LB MktDep MktFDU MktGGR MktNRU NRU PRO RD Ret SB Tx UP VB W WF WL
+2026-10-01 cells 9 diffs 0 
+2026-10-02 cells 9 diffs 0 
+2026-10-03 cells 9 diffs 0 
+2026-10-04 cells 9 diffs 0 
+2026-10-05 cells 9 diffs 0 
+2026-10-06 cells 9 diffs 0 
+2026-10-07 cells 9 diffs 0 
+2026-10-08 cells 9 diffs 0 
+2026-10-09 cells 9 diffs 0 
+2026-10-10 cells 9 diffs 0 
+2026-10-11 cells 9 diffs 0 
+2026-10-12 cells 9 diffs 0 
+2026-10-13 cells 9 diffs 0 
+2026-10-14 cells 9 diffs 0 
+2026-10-15 cells 9 diffs 0 
+2026-10-16 cells 9 diffs 0 
+2026-10-17 cells 9 diffs 0 
+2026-10-18 cells 9 diffs 0 
+2026-10-19 cells 9 diffs 0 
+2026-10-20 cells 9 diffs 0 
+2026-10-21 cells 9 diffs 0 
+2026-10-22 cells 9 diffs 0 
+2026-10-23 cells 9 diffs 0 
+2026-10-24 cells 9 diffs 0 
+2026-10-25 cells 9 diffs 0 
+2026-10-26 cells 9 diffs 0 
+2026-10-27 cells 9 diffs 14 CM MktGGR SB Tx VB WL
+2026-10-28 cells 9 diffs 157 Act BO CB CM D DF Depr FD FDU LB MktDep MktFDU MktGGR MktNRU NRU PRO RD Ret SB Tx UP VB W WF WL
+2026-10-15 NRU 464.0 FDU 138.0
+2026-10-22 NRU 443.0 FDU 129.0
+2026-10-04 NRU 399.0 FDU 108.0
+2026-10-01 NRU 414.0 FDU 125.0
+2026-10-21 NRU 361.0 FDU 101.0
+2026-10-28 NRU 203.0 FDU 25.0
+2026-10-14 NRU 477.0 FDU 130.0
+2026-10-05 NRU 447.0 FDU 124.0
+2026-10-19 NRU 497.0 FDU 111.0
+2026-10-13 NRU 498.0 FDU 152.0
+2026-10-02 NRU 505.0 FDU 124.0
+2026-10-03 NRU 507.0 FDU 116.0
+2026-10-20 NRU 506.0 FDU 122.0
+2026-10-18 NRU 558.0 FDU 121.0
+2026-10-06 NRU 606.0 FDU 151.0
+2026-10-16 NRU 541.0 FDU 130.0
+2026-10-17 NRU 620.0 FDU 145.0
+2026-10-07 NRU 582.0 FDU 114.0
+2026-10-23 NRU 645.0 FDU 175.0
+2026-10-09 NRU 656.0 FDU 174.0
+2026-10-08 NRU 614.0 FDU 140.0
+2026-10-10 NRU 680.0 FDU 170.0
+2026-10-12 NRU 752.0 FDU 159.0
+2026-10-11 NRU 777.0 FDU 177.0
+2026-10-27 NRU 1065.0 FDU 108.0
+2026-10-24 NRU 1153.0 FDU 179.0
+2026-10-26 NRU 1257.0 FDU 185.0
+2026-10-25 NRU 1595.0 FDU 168.0
+Oct NRU 17822.0 FDU 3801.0
+## 3 mkt
+2026-09 rows 874 -> 874
+   NRU 14285.0 14285.0
+   FDU 2850.0 2850.0
+   Act 5295.0 5295.0
+   Dep 1635771.4 1635771.4
+   VB 11626484.1 11626484.1
+   GGR 242135.7 242135.7
+   PA 6211.0 6211.0
+   RT 1918.0 1918.0
+2026-10 rows 902 -> 902
+   NRU 12382.0 12395.0
+   FDU 2556.0 2558.0
+   Act 5179.0 5183.0
+   Dep 1484942.7 1489475.5
+   VB 10506323.8 10521888.5
+   GGR 191186.9 194329.8
+   PA 5295.0 5295.0
+   RT 2056.0 2056.0
+## 4 custs
+63228 63982 ['10', '1891943'] ['1891943', 'N8BAFF1524', '51', '18/8/2026 2:15:41 PM']
+miss Counter() new custs 43031 old 43029
+bits0-11 equal: True 0 0
+0 2510 2510
+1 2749 2749
+2 3156 3156
+3 4796 4796
+4 5324 5324
+5 6196 6196
+6 5212 5212
+7 5314 5314
+8 6031 6031
+9 5251 5251
+10 6211 6211
+11 5295 5295
+12 5179 5183
+## 5 mk
+2026-10-01 old 137 new 137 row diffs 0
+2026-10-02 old 152 new 152 row diffs 0
+2026-10-03 old 152 new 152 row diffs 0
+2026-10-04 old 134 new 134 row diffs 0
+2026-10-05 old 129 new 129 row diffs 0
+2026-10-06 old 126 new 126 row diffs 0
+2026-10-07 old 138 new 138 row diffs 0
+2026-10-08 old 130 new 130 row diffs 0
+2026-10-09 old 131 new 131 row diffs 0
+2026-10-10 old 133 new 133 row diffs 0
+2026-10-11 old 136 new 136 row diffs 0
+2026-10-12 old 133 new 133 row diffs 0
+2026-10-13 old 139 new 139 row diffs 0
+2026-10-14 old 141 new 141 row diffs 0
+2026-10-15 old 144 new 144 row diffs 0
+2026-10-16 old 136 new 136 row diffs 0
+2026-10-17 old 143 new 143 row diffs 0
+2026-10-18 old 146 new 146 row diffs 0
+2026-10-19 old 162 new 162 row diffs 0
+2026-10-20 old 169 new 169 row diffs 0
+2026-10-21 old 149 new 149 row diffs 0
+2026-10-22 old 146 new 146 row diffs 0
+2026-10-23 old 137 new 137 row diffs 0
+2026-10-24 old 138 new 138 row diffs 0
+2026-10-25 old 136 new 136 row diffs 0
+2026-10-26 old 138 new 138 row diffs 0
+2026-10-27 old 147 new 147 row diffs 2
+2026-10-28 old 94 new 105 row diffs 57
+master list 496 new affs 0 changed 0
+srows changed rows 0
+Acq flips 0
+drows 14408
+## 6 prod
+m GGR 2542365 -> 2552881 p 17481 -> 17494
+2026-10-01 p 5681 -> 5681 GGR 135965 -> 135965
+2026-10-02 p 5999 -> 5999 GGR 62460 -> 62460
+2026-10-03 p 5427 -> 5427 GGR 115154 -> 115154
+2026-10-04 p 5024 -> 5024 GGR 35411 -> 35411
+2026-10-05 p 5293 -> 5293 GGR 185470 -> 185470
+2026-10-06 p 5057 -> 5057 GGR 151066 -> 151066
+2026-10-07 p 4926 -> 4926 GGR 131851 -> 131851
+2026-10-08 p 4703 -> 4703 GGR 64767 -> 64767
+2026-10-09 p 4680 -> 4680 GGR 45557 -> 45557
+2026-10-10 p 5118 -> 5118 GGR 117622 -> 117622
+2026-10-11 p 5074 -> 5074 GGR 144710 -> 144710
+2026-10-12 p 5004 -> 5004 GGR 115178 -> 115178
+2026-10-13 p 5100 -> 5100 GGR 69483 -> 69483
+2026-10-14 p 5208 -> 5208 GGR 108813 -> 108813
+2026-10-15 p 5200 -> 5200 GGR 39589 -> 39589
+2026-10-16 p 4964 -> 4964 GGR 72289 -> 72289
+2026-10-17 p 5057 -> 5057 GGR 107534 -> 107534
+2026-10-18 p 5111 -> 5111 GGR 131187 -> 131187
+2026-10-19 p 6313 -> 6313 GGR 68916 -> 68916
+2026-10-20 p 6345 -> 6345 GGR 78993 -> 78993
+2026-10-21 p 5726 -> 5726 GGR 108228 -> 108228
+2026-10-22 p 5405 -> 5405 GGR 113016 -> 113016
+2026-10-23 p 4996 -> 4996 GGR 82578 -> 82578
+2026-10-24 p 5181 -> 5181 GGR 127075 -> 127075
+2026-10-25 p 5158 -> 5158 GGR 51615 -> 51615
+2026-10-26 p 5025 -> 5025 GGR 42797 -> 42797
+2026-10-27 p 4760 -> 4760 GGR 9440 -> 9504
+2026-10-28 p 2489 -> 2849 GGR 25601 -> 36052
+miss set()
+days 120 2026-10-28
+pmdata 8222712
+## 7 seg
+pc_month 2026-10 1793163851063  pc_day 14
+missing from segment map: 5 -> run queries/_missmap_TEMPLATE.dax with these ids, then prep.py mapadd <id>
+!! 4+ customers missing from the segment map: run queries/_missmap_TEMPLATE.dax with ids from r28b/miss.txt, save raw/<id>.txt, python3 prep.py mapadd <id>, then rerun with: FROM=seg bash run.sh r28b  (or SKIP_MISS=1 to accept '(Unknown)')

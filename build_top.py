@@ -12,7 +12,7 @@ def segof(c):
 BM=collections.defaultdict(float); BD=collections.defaultdict(float)
 for r in load(TR+'1791344842588.txt'):
     d=dkey(r[0]); BM[(d[:7],r[1])]+=float(r[2] or 0)
-for r in [x for x in load(TR+'1791344851418.txt') if dkey(x[0])<'2026-09-28']+[x for x in load(TR+'1791785213554.txt') if dkey(x[0])<'2026-10-06']+load(TR+'1793149383974.txt'):
+for r in [x for x in load(TR+'1791344851418.txt') if dkey(x[0])<'2026-09-28']+[x for x in load(TR+'1791785213554.txt') if dkey(x[0])<'2026-10-06']+load(TR+'1793163755268.txt'):
     d=dkey(r[0]); BD[(d,r[1])]+=float(r[2] or 0)
     if d[:7]>='2026-07': BM[(d[:7],r[1])]+=float(r[2] or 0)
 def per(P):   # p -> cust -> [cell, wl, vb, mainprod, mainvb]
