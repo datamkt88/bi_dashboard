@@ -1,4 +1,4 @@
-Queries for D=2026-10-27  CUT=2026-10-06
+Queries for D=2026-10-28  CUT=2026-10-06
 
 exec               MK  AI Report_Marketing (workspace B2C-AI)
    expected header: [m],[Si],[Cu],[Ci],[NRU],[FDU],[Act],[Ret],[Depr],[RD],[Tx],[D],[FD],[W],[DF],[WF],[CM],[VB],[SB],[CB],[LB],[WL],[BO],[RB],[PRO],[ADJ],[pad]
@@ -45,6 +45,8 @@ pcD1               PR  AI Report_Product (workspace B2C-AI)
 pcD2               PR  AI Report_Product (workspace B2C-AI)
    expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
 pcD3               PR  AI Report_Product (workspace B2C-AI)
+   expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
+pcD4               PR  AI Report_Product (workspace B2C-AI)
    expected header: TpBet[ReportDate],[CustId],[SiteId],[CurrencyId],[Provider],[Product],[wl],[vb]
 list1              PP  Player Profile 360 (workspace B2C-Player Profile)
    expected header: [c],[sb],[si],[cu],[rg],[fd],[lb],[ld],[v],[st],[dc],[t],[vb],[wl],[dp],[nd]
