@@ -1,4 +1,4 @@
-Queries for D=2026-10-28  CUT=2026-10-06
+Queries for D=2026-10-29  CUT=2026-10-06
 
 exec               MK  AI Report_Marketing (workspace B2C-AI)
    expected header: [m],[Si],[Cu],[Ci],[NRU],[FDU],[Act],[Ret],[Depr],[RD],[Tx],[D],[FD],[W],[DF],[WF],[CM],[VB],[SB],[CB],[LB],[WL],[BO],[RB],[PRO],[ADJ],[pad]
