@@ -66,7 +66,15 @@ python3 queries.py 2026-10-28          # writes queries/*.dax + queries/INDEX.tx
 
 ### 3.2 Run the pulls
 
-Run each `queries/<name>.dax` with `dax_query_operations` → `Execute`, `maxRows 300000`, `timeoutSeconds 300`, on the connection listed in INDEX.txt.
+**Cloud route (no laptop or browser sign-in; becomes the scheduled default once validated).** Needs the app secret in `~/.pbi_secret` (chmod 600; never commit it) and `login.microsoftonline.com` + `api.powerbi.com` in Claude's allowed websites. Setup is in project doc `claude/power-bi-app-account-setup.md`.
+
+```bash
+python3 cloud/cloudpull.py /home/claude/pipe <D> rNN      # runs queries.py, pulls every query one at a time, writes raw/9*.txt + ids_rNN.json
+```
+
+It retries resets and Fabric capacity throttling by itself. If it still fails (secret missing or expired, 401/403, permissions), use the laptop route below. If the app secret is missing in a new cloud workspace, ask the user for it — do not look for it in git.
+
+**Laptop route (fallback).** Run each `queries/<name>.dax` with `dax_query_operations` → `Execute`, `maxRows 300000`, `timeoutSeconds 300`, on the connection listed in INDEX.txt.
 
 - **Each result must be saved to a file.** The tool saves results bigger than its inline limit to `tool-results/...-<id>.txt`. Small queries carry a `"pad",REPT("x",150)` column so they are always big enough. If a result still comes back inline, raise the pad to `REPT("x",400)`.
 - The pulls are read-only, so retrying one is harmless.
@@ -235,4 +243,5 @@ The current schedule (09:00 MYT daily, incl. weekends) is bound to the **origina
 - **drows** uses a registration cutoff of `RegTime_utc8 >= 2025-01-01`. It was verified against the original report.
 - Two monthly redepositor segment rows are missing, so Sep redepositors show 11,171 vs 11,179. Known and accepted.
 - **GitHub Pages** on a private repo needs a paid plan. Until then, view the dashboard via the downloaded file or the artifact link.
+- **Fabric capacity:** sending several queries at once (or a big refresh at the same time) can exceed the capacity; Power BI then delays every request ~20 s or rejects it for a while. `cloudpull.py` therefore runs one query at a time (`CLOUD_WORKERS=1`).
 - **Reproducibility check:** this pack was smoke-tested by rebuilding the 27 Oct 12:16 dashboard from the 09:14 one. Every data block came out identical (only the tag order inside the VIP block differed; `run.sh` now sets `PYTHONHASHSEED=0`).
