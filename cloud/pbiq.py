@@ -26,14 +26,15 @@ def fmt(v):
     return str(v)
 def run(conn, query, out):
     g,d=DS[conn]
-    for attempt in range(3):
+    for attempt in range(5):
         r=requests.post(f'https://api.powerbi.com/v1.0/myorg/groups/{g}/datasets/{d}/executeQueries',headers={'Authorization':'Bearer '+token()},
             json={'queries':[{'query':query}],'serializerSettings':{'includeNulls':True}},timeout=600)
-        if r.status_code==429 or r.status_code>=500: time.sleep(20*(attempt+1)); continue
+        busy = r.status_code==429 or r.status_code>=500 or 'capacity has exceeded' in r.text
+        if busy and attempt<4: time.sleep(60*(attempt+1)); continue   # capacity throttling: back off 1,2,3,4 min
         break
-    if not r.ok: raise SystemExit(f'{conn} HTTP {r.status_code}: {r.text[:500]}')
+    if not r.ok: raise RuntimeError(f'{conn} HTTP {r.status_code}: {r.text[:500]}')
     res=r.json()['results'][0]
-    if 'error' in res: raise SystemExit(f"{conn} error: {res['error']}")
+    if 'error' in res: raise RuntimeError(f"{conn} error: {res['error']}")
     rows=res['tables'][0].get('rows',[])
     cols=list(rows[0].keys()) if rows else []
     buf=io.StringIO(); w=csv.writer(buf,lineterminator='\n'); w.writerow(cols)

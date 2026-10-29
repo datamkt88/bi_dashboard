@@ -3,6 +3,7 @@ and write ids_<run>.json. usage: python3 cloudpull.py <pipe dir> <D> <run> [time
 import sys, os, json, re, subprocess, time, threading, datetime as dt
 from concurrent.futures import ThreadPoolExecutor
 LOCK=threading.Lock()
+W=int(os.environ.get('CLOUD_WORKERS','1'))  # 1 = one query at a time; more can exceed Fabric capacity
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # pbiq.py lives next to this file
 import pbiq
 P, D, RUN = sys.argv[1:4]
@@ -46,10 +47,10 @@ def split_save(name, q, N=4):
     assert q.rstrip().endswith(')')
     parts=[]
     qs=[(name+f'.{i}', q.rstrip()[:-1]+f", FILTER(VALUES({TB}[CustId]), MOD({TB}[CustId],{N})={i}))") for i in range(N)]
-    with ThreadPoolExecutor(4) as ex: parts=list(ex.map(lambda a: save(*a), qs))
+    with ThreadPoolExecutor(W) as ex: parts=list(ex.map(lambda a: save(*a), qs))
     rid,n=merge(parts); print(f'{name} merged {n} rows -> {rid}', flush=True); return rid
 simple=[n for n in names if n!='list2' and n!='pcM' and not n.startswith('pcD')]
-with ThreadPoolExecutor(4) as ex:
+with ThreadPoolExecutor(W) as ex:
     for n,rid in zip(simple, ex.map(lambda n: save(n, open(f'queries/{n}.dax').read()), simple)): ids[n]=rid
 for name in [n for n in names if n not in simple]:
     q = open(f'queries/{name}.dax').read()
