@@ -8,7 +8,7 @@ SITE={'1':'Nova88','2':'Goal123','3':'Bwing'}; CUR={r[2]:r[1] for r in D['sc']};
 cidx={tuple(c):i for i,c in enumerate(PM['cells'])}; cats=PM['cats']; prods=[p[0] for p in PM['prods']]; provs=PM['provs']
 TR='raw/'
 def rd(f):
-    if f.startswith('179'): return load(TR+f+'.txt')
+    if __import__('os').path.exists(TR+f+'.txt'): return load(TR+f+'.txt')   # laptop (179...) and cloud (9...) pulls
     if f.endswith('.csv'): return [r for r in list(csv.reader(open(f)))[1:] if r]
     return [r for r in list(csv.reader(open('uploads/QueryResults/dax_query_result_'+f+'.csv')))[1:] if r]
 F={'T':'r29a/T.csv','C':'1793240677188','P':'1793240722636','V':'1793240751690','VC':'1793240781870','VP':'1793240812646'}
