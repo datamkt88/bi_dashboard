@@ -27,8 +27,12 @@ def fmt(v):
 def run(conn, query, out):
     g,d=DS[conn]
     for attempt in range(5):
-        r=requests.post(f'https://api.powerbi.com/v1.0/myorg/groups/{g}/datasets/{d}/executeQueries',headers={'Authorization':'Bearer '+token()},
-            json={'queries':[{'query':query}],'serializerSettings':{'includeNulls':True}},timeout=600)
+        try:
+            r=requests.post(f'https://api.powerbi.com/v1.0/myorg/groups/{g}/datasets/{d}/executeQueries',headers={'Authorization':'Bearer '+token()},
+                json={'queries':[{'query':query}],'serializerSettings':{'includeNulls':True}},timeout=600)
+        except requests.exceptions.ConnectionError:   # proxy tunnel reset: retry
+            if attempt==4: raise
+            time.sleep(15); continue
         busy = r.status_code==429 or r.status_code>=500 or 'capacity has exceeded' in r.text
         if busy and attempt<4: time.sleep(60*(attempt+1)); continue   # capacity throttling: back off 1,2,3,4 min
         break
