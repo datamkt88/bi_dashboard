@@ -66,7 +66,7 @@ python3 queries.py 2026-10-28          # writes queries/*.dax + queries/INDEX.tx
 
 ### 3.2 Run the pulls
 
-**Cloud route (no laptop or browser sign-in; becomes the scheduled default once validated).** Needs the app secret in `~/.pbi_secret` (chmod 600; never commit it) and `login.microsoftonline.com` + `api.powerbi.com` in Claude's allowed websites. Setup is in project doc `claude/power-bi-app-account-setup.md`.
+**Cloud route (scheduled default since 30 Oct 2026; no browser sign-in).** Needs the app secret in `~/.pbi_secret` (chmod 600; never commit it) and `login.microsoftonline.com` + `api.powerbi.com` in Claude's allowed websites. Setup is in project doc `claude/power-bi-app-account-setup.md`.
 
 ```bash
 python3 cloud/cloudpull.py /home/claude/pipe <D> rNN      # runs queries.py, pulls every query one at a time, writes raw/9*.txt + ids_rNN.json
@@ -221,17 +221,13 @@ Validate everything in 3.4 before publishing.
 
 ---
 
-## 6. Scheduled daily refresh from another conversation or laptop
+## 6. Scheduled refresh
 
-The current schedule (09:00 MYT daily, incl. weekends) is bound to the **original conversation and laptop-ih2a3dmt**. If you move to another laptop, first **turn off the old scheduled task** in the original conversation, so two runs don't both push. Then create a new scheduled task in the new, linked conversation with this prompt:
+Scheduled task "Dashboard refresh 10am & 1pm" (10:00 and 13:00 MYT, every day). Each run books the next slot first, pulls via the **cloud route** (3.2) with the laptop route as fallback, skips the build if Power BI has no new data, and republishes the artifact last. "Automatically approve" is on.
 
-> Daily 9am refresh of B2C Marketing & OP (every day incl. weekends). Follow the runbook in project doc claude/b2c-dashboard-refresh-runbook.md (also RUNBOOK.md on branch `pipeline` of datamkt88/bi_dashboard). Set up the session (section 2). Run queries for today. Build a new rNN with newrun.py and run.sh. Check every validation line in 3.4. Then:
-> 1. send the user the HTML file;
-> 2. push index.html to main;
-> 3. republish the artifact https://claude.ai/artifact/U2tWfjN39JkawcfuKumBDq;
-> 4. push the pipeline state back (3.6).
->
-> If it is the first run of a new month, stop after the pulls and ask the user (section 5). If Power BI is unreachable or a check fails, publish nothing and send the user a short note saying what is needed.
+- Validated 29 Oct 2026 18:00: full cloud pull ~23 min (one query at a time), then the normal build (newrun + run.sh, segment-map top-up via cloud/pbiq.py on PP) passed every check with no page errors.
+- The task is still tied to the linked laptop in the Claude app, so keep that laptop online with the Claude desktop app open; the Power BI sign-in on the laptop is no longer needed.
+- If you move to another laptop, turn off the old scheduled task first so two runs don't both push, then recreate it from the new conversation with the same prompt.
 
 ---
 
