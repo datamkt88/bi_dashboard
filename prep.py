@@ -69,6 +69,7 @@ elif cmd=='pminsert':
 elif cmd=='pcjson':
     I=ids(arg); M=json.load(open('pc_month.json')); M[CFG['month']]=I['pcM']; json.dump(M,open('pc_month.json','w'))
     hist=json.load(open('state/pc_day_hist.json'))      # chunks before CUT (fixed)
-    json.dump(hist+I['pcD'],open('pc_day.json','w')); json.dump(['1791785152514']+I['pcD'],open('pc_new.json','w'))
+    json.dump(hist+I['pcD'],open('pc_day.json','w')); fixed=json.load(open('state/pc_new_fixed.json')) if os.path.exists('state/pc_new_fixed.json') else ['1791785152514']   # whole-chunk files (not cut at 28 Sep)
+    json.dump(fixed+I['pcD'],open('pc_new.json','w'))
     print('pc_month',CFG['month'],I['pcM'],' pc_day',len(hist)+len(I['pcD']))
 else: print(__doc__)
