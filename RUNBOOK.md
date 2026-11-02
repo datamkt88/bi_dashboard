@@ -195,29 +195,27 @@ Notes:
 - `base` (48 rows) needs a big pad (`REPT("x",2500)`) to be saved to a file. `queries.py` already does this.
 - `pcD` chunks are 10 days, then 6-day pieces. A 12-day chunk timed out once.
 
-## 5. Month rollover (first run in November): not automated yet
+## 5. Month rollover (first run of a new month)
 
-`newrun.py` refuses to cross a month on purpose. Do the 1 Nov run **interactively with the user present**, not unattended.
+Done for November on 2 Nov 2026 with two scripts. Do it **interactively**, not from the scheduled task (the scheduled prompt stops at a month change).
 
-These are the places tied to October:
+```bash
+# 1. finish the old month: a normal run with D = last day of the month (e.g. r31 for 31 Oct)
+python3 cloud/cloudpull.py /home/claude/pipe 2026-10-31 r31 23:59 23:59 && python3 newrun.py r30b r31 ids_r31.json && bash run.sh r31
+#    validate (3.4) and publish it: this is the final month
+# 2. roll the page and state over (FX for the new month from Fabric, cmonths/partial/reg, customer bits >>1,
+#    product month lists, state/config + custs_base + pc_day_hist + pc_new_fixed + pc_month[old])
+python3 rollover.py r31 2026-11
+# 3. queries.py: set the default CUT to the 1st of the new month, then pull the new month
+python3 cloud/cloudpull.py /home/claude/pipe 2026-11-02 r02a
+# 4. first folder of the new month (asserts every edit), then build as usual
+python3 mkmonth.py r31 r02a ids_r02a.json && bash run.sh r02a
+```
 
-- **FX:** `D['fx']` needs `2026-11|<CurrencyId>` rates for every currency. They come from the exec/model FX (RateType 2). Check that `ref_exec` / `mk` find them; a `KeyError: '2026-11|..'` means they are missing.
-- **Month lists:** `PM['m']` and `PM['cd']['m']` (product), the data-block month lists, `build_vip2s/3s` month loop `(2026,10)`, `build_mg` `partial`, and RM/FM/mg 14-month windows (queries.py shifts these automatically).
-- **Customer bitmask** (`build_custs`, `prep.py custs`): Oct is bit 12. Nov is bit 13.
-  - Set `state/config.json` to `{"cut":"2026-11-01","month":"2026-11","month_bit":13}`.
-  - Make `state/custs_base.json` = the last October `rNN/custs_in.json`, so final October actives are frozen.
-  - `build_custs.py` compares bits `0xFFF`; widen it to `0x1FFF`.
-  - Check how the page decodes the mask (`custs`): 13 vs 14 months.
-- **ref_mkt / mk:**
-  - `prows` keep 'sep'/'oct' pairs. For Nov this becomes Oct (now final) plus Nov.
-  - `ref_mkt` reads a fixed Sep pull (`1791784745621`). For Nov it needs a final **October** per-customer pull as the "previous month".
-- **ref_prod:** `mi`/`si` month indexes, `DAYS` start date, and `cdOct`. Product daily `days` and per-customer `pc_day` history:
-  - move the October chunks into `state/pc_day_hist.json`;
-  - set `pc_month.json["2026-10"]` to a final full-October pcM pull.
-- **vipm cut, pcD and bonus start:** move `cut` to 2026-11-01 only after the October rows are final in the state files.
-- **Display text:** "Oct 26 partial month" labels are generated from the data; check the header after building.
-
-Validate everything in 3.4 before publishing.
+- FX: rates already in the page are never changed. October's page rates differ slightly from Fabric's October rates (THB 0.02986 vs 0.02966); they were left as published.
+- The Marketing model keeps a rolling window (on 1 Nov it dropped Sep 2025 monthly and Jul 2026 daily rows). `mg_keep.py` (run by run.sh) carries those older periods over from `state/mg_prev.json`.
+- Checks specific to the rollover: `ref_exec` shows `<old month> cells N diffs 0`; `build_custs` shows `bits0-11 equal: True` and bit 12 = new-month actives; `ref_mkt` PA total = old month's actives; K2 line compares the old month with the one before.
+- Later runs of the new month use `newrun.py` as normal.
 
 ---
 
