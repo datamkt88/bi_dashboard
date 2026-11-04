@@ -8,6 +8,7 @@ export PYTHONPATH=. PYTHONHASHSEED=0
 [ -z "$CHROMIUM" ] && C=$(ls /opt/pw-browsers/chromium-*/chrome-linux*/chrome 2>/dev/null | head -1) && [ -n "$C" ] && export CHROMIUM=$C
 if [ "$FROM" != seg ]; then
 cp B2C-Marketing.html "bak_before_$R.html"
+echo "## 0 fx";        python3 fxsync.py    # this month's FX = Power BI's current rates
 echo "## 1 prep";      python3 prep.py csvs $R; python3 prep.py custs $R; python3 prep.py drows $R
 echo "## 2 exec";      python3 $R/ref_exec.py
 echo "## 3 mkt";       python3 $R/ref_mkt.py

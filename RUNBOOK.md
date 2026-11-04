@@ -2,7 +2,7 @@
 
 This is a handoff pack. With it, any Claude conversation on any computer can refresh the **B2C Marketing & OP** dashboard: it pulls the data from Power BI, rebuilds the HTML, checks it, and publishes it.
 
-Last good build: **4 Nov 2026, data pulled 14:54 MYT** (run folder `r04c`, with October re-pulled in `r31_r04c`).
+Last good build: **4 Nov 2026, data pulled 15:52 MYT** (run folder `r04d`, with October re-pulled in `r31_r04d` and October FX synced to Power BI).
 
 ---
 
@@ -108,7 +108,7 @@ bash run.sh r28
 ```
 
 `run.sh` runs these steps in order:
-prep (CSVs, customer bitmask, daily rows) → `ref_exec` → `ref_mkt` → `build_custs` → `mk` → `ref_prod` + pmdata insert → segment check → `build_seg` → `build_top2` → VIP state → `build_vip2s` / `build_vip3s` → `build_mg` / `mg_rd` → `final` → page check (`t60.js`).
+fxsync (this month's FX = Power BI's current rates) → prep (CSVs, customer bitmask, daily rows) → `ref_exec` → `ref_mkt` → `build_custs` → `mk` → `ref_prod` + pmdata insert → segment check → `build_seg` → `build_top2` → VIP state → `build_vip2s` / `build_vip3s` → `build_mg` / `mg_rd` → `final` → page check (`t60.js`).
 
 If it stops with **"customers missing from the segment map"**:
 
@@ -176,7 +176,7 @@ bash prevmonth.sh rNN                                       # instead of newrun.
 
 1. restores the page and state as they were right after last month's final build, before `rollover.py` (pipeline commit + main commit in `state/prev_snapshot.json`);
 2. pulls last month again with D = its last day into folder `<final>_<rNN>` (e.g. `r31_r05a`), `newrun.py <final> <final>_<rNN>`, `run.sh`;
-3. `rollover.py` (the new month's FX rates are taken from the published page, never changed), `mkmonth.py <final>_<rNN> rNN`, `run.sh rNN`.
+3. `rollover.py` (last month and the new month both get Power BI's current FX rates via `fxsync.py` in `run.sh`), `mkmonth.py <final>_<rNN> rNN`, `run.sh rNN`.
 
 Checks: both builds must pass 3.4, with two differences for the last-month build: any day of last month may change a little (that is the point), and its `ref_exec` / `mk` lines compare against last month's final build. For the current-month build after rollover, `ref_exec` shows `<last month> cells 9 diffs 0`, `build_custs` shows `bits0-11 equal: True`, and `Acq flips` is non-zero (expected after a rollover).
 
@@ -236,7 +236,7 @@ python3 cloud/cloudpull.py /home/claude/pipe 2026-11-02 r02a
 python3 mkmonth.py r31 r02a ids_r02a.json && bash run.sh r02a
 ```
 
-- FX: rates already in the page are never changed. October's page rates differ slightly from Fabric's October rates (THB 0.02986 vs 0.02966); they were left as published.
+- FX: Power BI revises a month's rate (RateType 2, dated the 1st) after the month starts. `run.sh` therefore runs `fxsync.py` first, which sets the month being built to Power BI's current rates, so that month's figures match Power BI. Older months are not touched. (October 2026 was synced on 4 Nov 2026; it had been showing THB 0.02986 instead of 0.02966 etc.)
 - The Marketing model keeps a rolling window (on 1 Nov it dropped Sep 2025 monthly and Jul 2026 daily rows). `mg_keep.py` (run by run.sh) carries those older periods over from `state/mg_prev.json`.
 - Checks specific to the rollover: `ref_exec` shows `<old month> cells N diffs 0`; `build_custs` shows `bits0-11 equal: True` and bit 12 = new-month actives; `ref_mkt` PA total = old month's actives; K2 line compares the old month with the one before.
 - Later runs of the new month use `newrun.py` as normal.

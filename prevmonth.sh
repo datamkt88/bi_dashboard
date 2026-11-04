@@ -26,7 +26,6 @@ if [ "$STEP" != cur ]; then
   git checkout $PC -- $DATA
   rm -f state/pc_new_fixed.json "state/rollover_$NEW.json"
   if git ls-tree --name-only $PC state/ | grep -q pc_new_fixed; then git checkout $PC -- state/pc_new_fixed.json; fi
-  git show origin/main:index.html | python3 -c "import sys,re,json;D=json.loads(re.search(r'<script id=\"data\" type=\"application/json\">(.*?)</script>',sys.stdin.read(),re.S).group(1));json.dump({k:v for k,v in D['fx'].items() if k.startswith('$NEW|')},open('_fx_keep.json','w'))"
   git show $MC:index.html > B2C-Marketing.html
   if [ ! -f "ids_$P.json" ]; then
     echo "## B pull $OLD again (D=$LAST) -> $P"
@@ -36,7 +35,7 @@ if [ "$STEP" != cur ]; then
   echo "## C build $P"
   bash run.sh $P || { rc=$?; echo "!! last-month build $P stopped (exit $rc)"; exit $rc; }
   echo "## D rollover $OLD -> $NEW"
-  FX_KEEP=_fx_keep.json python3 rollover.py $P $NEW
+  python3 rollover.py $P $NEW
   rm -rf _roll; cp B2C-Marketing.html "prev_rolled_$P.html"
   for f in $DATA state/pc_new_fixed.json state/rollover_$NEW.json; do mkdir -p "_roll/$(dirname $f)"; cp "$f" "_roll/$f"; done
 else
