@@ -14,7 +14,8 @@ for l in open('queries/INDEX.txt'):
     m = re.match(r'^(\S+)\s+(MK|PR|PP)\s', l)
     if m: conn[m.group(1)] = m.group(2)
 names = [n for n in conn if not n.startswith('_')]
-ids = {'date': D, 'time': sys.argv[4] if len(sys.argv) > 4 else time.strftime('%H:%M'), 'time2': sys.argv[5] if len(sys.argv) > 5 else time.strftime('%H:%M')}
+_now = (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=8)).strftime('%H:%M')   # pull time in MYT (the container clock is UTC)
+ids = {'date': D, 'time': sys.argv[4] if len(sys.argv) > 4 else _now, 'time2': sys.argv[5] if len(sys.argv) > 5 else _now}
 base = int(time.time() * 1000)
 def save(name, q):
     global base

@@ -13,3 +13,6 @@
 /r[0-9]*/vip2.json
 /r[0-9]*/vip2_stage1.json
 __pycache__/
+/_roll/
+/prev_rolled_*.html
+/_fx_keep.json

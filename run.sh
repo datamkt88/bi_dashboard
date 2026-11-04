@@ -19,6 +19,8 @@ echo "## 7 seg";       python3 prep.py pcjson $R; python3 prep.py miss $R
 if [ -s $R/miss.txt ] && [ -z "$SKIP_MISS" ]; then echo "!! $(wc -l < $R/miss.txt | tr -d ' ')+ customers missing from the segment map: run queries/_missmap_TEMPLATE.dax with ids from $R/miss.txt, save raw/<id>.txt, python3 prep.py mapadd <id>, then rerun with: FROM=seg bash run.sh $R  (or SKIP_MISS=1 to accept '(Unknown)')"; exit 2; fi
 python3 build_seg.py; python3 build_top2.py
 echo "## 8 vip";       python3 prep.py vipm $R; python3 $R/build_vip2s.py; python3 $R/build_vip3s.py
+# mg_rd.py also reads older folders' RDoct.csv (gitignored): rebuild any that a fresh workspace lacks
+for P in $(grep -o "'r[0-9A-Za-z_]*/RDoct'" $R/mg_rd.py | tr -d "'" | cut -d/ -f1 | sort -u); do [ -f "$P/RDoct.csv" ] || python3 prep.py csvs $P; done
 echo "## 9 mg";        python3 $R/build_mg.py; python3 $R/mg_rd.py; python3 mg_keep.py state/mg_prev.json $R/mgdata.json; cp $R/mgdata.json state/mg_prev.json
 echo "## 10 final";    python3 $R/final.py
 echo "## 11 check";    node t60.js

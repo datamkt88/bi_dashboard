@@ -1,0 +1,1 @@
+{"month": "2026-10", "folder": "r31", "pipeline": "f9fa553", "main": "c0ee546", "until": "2026-11-15", "note": "page + state right after the October final build (r31), before rollover.py; used by prevmonth.sh on days 1..until"}

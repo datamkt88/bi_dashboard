@@ -31,6 +31,12 @@ pbiq.run('MK', f'EVALUATE SELECTCOLUMNS(FILTER({X}, {X}[RateType]=2 && {X}[RateD
 t = ''.join(x['text'] for x in json.load(open(out))); rows = [r.split(',') for r in t[t.index('] ') + 2:].strip().split('\n')[1:] if r]
 rate = {c: float(r) for c, r in rows}
 need = sorted({k.split('|')[1] for k in D['fx'] if k.startswith(OLD + '|')})
+import os
+if os.environ.get('FX_KEEP'):   # prevmonth.sh replay: keep the new-month rates already published (never change a published rate)
+    keep = json.load(open(os.environ['FX_KEEP']))
+    for k, v in keep.items():
+        if k.startswith(NEW + '|'): rate[k.split('|')[1]] = v
+    print('fx kept from the published page:', len(keep), 'rates')
 missing = [c for c in need if c not in rate]
 assert not missing, f'no {NEW} rate for currencies {missing}'
 for c in need: D['fx'].setdefault(f'{NEW}|{c}', rate[c])

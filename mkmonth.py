@@ -71,7 +71,11 @@ print('{O} rows kept',sum(1 for r in D['prows'] if r[0]=='{O}'))
 json.dump({{'cur':newN,'month':'{N}'}},open('{new}/prows_new.json','w'))
 ''')
 _mk = open(f'{new}/mk.py').read()
-edit('mk.py', ([(f"r[0]>='{O}-01'", f"r[0]>='{N}-01'"), (f"r[0]<'{O}-01'", f"r[0]<'{N}-01'")] if f"r[0]<'{O}-01'" in _mk else []) + [
+_ms = "MS=json.load(open('state/config.json'))['month']+'-01'   # current month start (not a literal: newrun would shift it)\n"
+if f"r[0]<'{O}-01'" in _mk:   # literal month start -> read it from state/config.json (fix first made in r04m)
+    _old = re.search(r"\nold=\{.*?r\[0\]>='" + O + r"-01'\}\n", _mk).group(0)
+    edit('mk.py', [(_old, '\n' + _ms + _old[1:].replace(f"r[0]>='{O}-01'", "r[0]>=MS")), (f"r[0]<'{O}-01'", "r[0]<MS")])
+edit('mk.py', [
                (f"D['prows']=[r for r in D['prows'] if r[0] not in ('{P}','{O}')]+po['sep']+po['oct']", "D['prows']=[r for r in D['prows'] if r[0]!=po['month']]+po['cur']"),
                (re.search(r"D\['dlast'\]=.*", open(f'{new}/mk.py').read()).group(0), f"D['dlast']='{Dm1}'; D['factmax']='{db.isoformat()}'; D['asof']='{db.isoformat()} {B['time']}:00'")])
 edit('ref_prod.py', [(f"mi=PM['m'].index('{O}'); si=PM['m'].index('{P}')", f"mi=PM['m'].index('{N}'); si=PM['m'].index('{O}')"),

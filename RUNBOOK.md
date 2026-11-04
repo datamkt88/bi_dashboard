@@ -2,7 +2,7 @@
 
 This is a handoff pack. With it, any Claude conversation on any computer can refresh the **B2C Marketing & OP** dashboard: it pulls the data from Power BI, rebuilds the HTML, checks it, and publishes it.
 
-Last good build: **27 Oct 2026, data pulled 16:25 MYT** (run folder `r27c`).
+Last good build: **4 Nov 2026, data pulled 14:54 MYT** (run folder `r04c`, with October re-pulled in `r31_r04c`).
 
 ---
 
@@ -163,6 +163,27 @@ Commit identity used so far:
 git -c user.name="datamkt88" -c user.email="nova88best@gmail.com" commit ...
 ```
 
+### 3.8 Days 1-15: refresh last month too
+
+From the 1st to the 15th of a month (until the `until` date in `state/prev_snapshot.json`), every run also re-pulls and rebuilds **last month**, so late adjustments in Power BI (voided bets, late deposits, re-settled tickets) reach the dashboard. After the 15th, last month stays as built by the last such run.
+
+```bash
+python3 cloud/cloudpull.py /home/claude/pipe <D> rNN        # current month, as usual
+bash prevmonth.sh rNN                                       # instead of newrun.py + run.sh
+```
+
+`prevmonth.sh` (about 25 min on top of the normal run):
+
+1. restores the page and state as they were right after last month's final build, before `rollover.py` (pipeline commit + main commit in `state/prev_snapshot.json`);
+2. pulls last month again with D = its last day into folder `<final>_<rNN>` (e.g. `r31_r05a`), `newrun.py <final> <final>_<rNN>`, `run.sh`;
+3. `rollover.py` (the new month's FX rates are taken from the published page, never changed), `mkmonth.py <final>_<rNN> rNN`, `run.sh rNN`.
+
+Checks: both builds must pass 3.4, with two differences for the last-month build: any day of last month may change a little (that is the point), and its `ref_exec` / `mk` lines compare against last month's final build. For the current-month build after rollover, `ref_exec` shows `<last month> cells 9 diffs 0`, `build_custs` shows `bits0-11 equal: True`, and `Acq flips` is non-zero (expected after a rollover).
+
+If a build stops for missing segment-map customers: top up with the ids in that folder's `miss.txt` (3.3), then rerun `bash prevmonth.sh rNN` if it stopped in `<final>_<rNN>` (reuses the pull), or `STEP=cur bash prevmonth.sh rNN` if it stopped in `rNN`.
+
+Commit both folders and both `ids_*.json` (3.6, add `r*_rNN ids_r*_rNN.json`).
+
 ### 3.7 If anything fails
 
 If Power BI is unreachable, a sign-in is pending, or a validation line in 3.4 is wrong:
@@ -202,7 +223,10 @@ Done for November on 2 Nov 2026 with two scripts. Do it **interactively**, not f
 ```bash
 # 1. finish the old month: a normal run with D = last day of the month (e.g. r31 for 31 Oct)
 python3 cloud/cloudpull.py /home/claude/pipe 2026-10-31 r31 23:59 23:59 && python3 newrun.py r30b r31 ids_r31.json && bash run.sh r31
-#    validate (3.4) and publish it: this is the final month
+#    validate (3.4) and publish it: this is the final month. Commit the pipeline state, then note both commits:
+#    state/prev_snapshot.json = {"month": "<old YYYY-MM>", "folder": "r31", "pipeline": "<pipeline commit after r31>",
+#                                "main": "<main commit with r31's index.html>", "until": "<new month>-15"}
+#    (prevmonth.sh, section 3.8, restores this point on days 1-15)
 # 2. roll the page and state over (FX for the new month from Fabric, cmonths/partial/reg, customer bits >>1,
 #    product month lists, state/config + custs_base + pc_day_hist + pc_new_fixed + pc_month[old])
 python3 rollover.py r31 2026-11
@@ -221,7 +245,7 @@ python3 mkmonth.py r31 r02a ids_r02a.json && bash run.sh r02a
 
 ## 6. Scheduled refresh
 
-Scheduled task "Dashboard refresh 10am & 1pm" (10:00 and 13:00 MYT, every day). Each run books the next slot first, pulls via the **cloud route** (3.2) with the laptop route as fallback, skips the build if Power BI has no new data, and republishes the artifact last. "Automatically approve" is on.
+Scheduled task "Dashboard refresh 10:00 & 13:00 (cloud)" (10:00 and 13:00 MYT, every day). Each run pulls via the **cloud route** (3.2), skips the build if Power BI has no new data, uses `prevmonth.sh` (3.8) on days 1-15 so last month is refreshed too, and republishes the artifact last. "Automatically approve" is on.
 
 - Validated 29 Oct 2026 18:00: full cloud pull ~23 min (one query at a time), then the normal build (newrun + run.sh, segment-map top-up via cloud/pbiq.py on PP) passed every check with no page errors.
 - The task is still tied to the linked laptop in the Claude app, so keep that laptop online with the Claude desktop app open; the Power BI sign-in on the laptop is no longer needed.

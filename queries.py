@@ -5,7 +5,7 @@ usage:  python3 queries.py 2026-10-28            -> writes queries/<name>.dax fo
 
 D      = report date (data through D; D itself is the partial day)
 --cut  = first day that is re-pulled for per-customer daily data (pc day, bonus, vipm).
-         Everything before CUT lives in state/ (pc_day.json + raw/). Default 2026-11-01 (set at the November rollover); keep it until
+         Everything before CUT lives in state/ (pc_day.json + raw/). Default = state/config.json 'cut' (rollover.py sets it to the 1st of the new month); keep it until
          you deliberately roll the state forward (see RUNBOOK 'Month rollover').
 
 Each query lists: connection (MK / PR / PP), expected header, and a reference result in ref/
@@ -15,7 +15,8 @@ only live intraday values differ). If one errors after a model change, run queri
 """
 import sys, os, datetime as dt
 D = dt.date.fromisoformat(sys.argv[1])
-CUT = dt.date.fromisoformat(sys.argv[sys.argv.index('--cut')+1]) if '--cut' in sys.argv else dt.date(2026,11,1)
+import json
+CUT = dt.date.fromisoformat(sys.argv[sys.argv.index('--cut')+1] if '--cut' in sys.argv else json.load(open('state/config.json'))['cut'])   # default = state/config.json cut (set by rollover.py)
 D1 = D + dt.timedelta(1)
 MS = D.replace(day=1)                                   # current month start
 PMS = (MS - dt.timedelta(1)).replace(day=1)             # previous month start
