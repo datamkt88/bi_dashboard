@@ -16,3 +16,4 @@ __pycache__/
 /_roll/
 /prev_rolled_*.html
 /_fx_keep.json
+/package-lock.json
