@@ -14,7 +14,7 @@ echo "## 2 exec";      python3 $R/ref_exec.py
 echo "## 3 mkt";       python3 $R/ref_mkt.py
 echo "## 4 custs";     python3 $R/build_custs.py
 echo "## 5 mk";        python3 $R/mk.py
-echo "## 6 prod";      python3 $R/ref_prod.py; python3 prep.py pminsert $R
+echo "## 6 prod";      python3 prodadd.py; python3 $R/ref_prod.py; python3 prep.py pminsert $R
 fi
 echo "## 7 seg";       python3 prep.py pcjson $R; python3 prep.py miss $R
 if [ -s $R/miss.txt ] && [ -z "$SKIP_MISS" ]; then echo "!! $(wc -l < $R/miss.txt | tr -d ' ')+ customers missing from the segment map: run queries/_missmap_TEMPLATE.dax with ids from $R/miss.txt, save raw/<id>.txt, python3 prep.py mapadd <id>, then rerun with: FROM=seg bash run.sh $R  (or SKIP_MISS=1 to accept '(Unknown)')"; exit 2; fi

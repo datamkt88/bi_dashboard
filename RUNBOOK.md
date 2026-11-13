@@ -116,6 +116,10 @@ If it stops with **"customers missing from the segment map"**:
 2. `python3 grab.py ...`, then `python3 prep.py mapadd <id>`.
 3. Restart from that point with `FROM=seg bash run.sh rNN`.
 
+If **ref_prod** prints a non-empty `miss` (e.g. `('P', 'KS88 Cockfighting')`, `('V', 'KS88')`) and `build_top2` fails with a `KeyError` on a product name, Power BI has a new product or vendor. Add it to `state/prod_extra.json` (`provs`: vendor names; `prods`: `[product, category]`, the category as named in pmdata `cats`). `prodadd.py` (run by `run.sh` just before `ref_prod`) appends them to pmdata; appending keeps every stored index valid. Then rerun the build from the start (`bash run.sh rNN`, or `STEP=cur bash prevmonth.sh rNN` on days 1-15). Added so far: KS88 / KS88 Cockfighting (13 Nov 2026).
+
+`cloud/cloudpull.py` splits `list2` by customer id so each part stays under the REST API's 62,500-row limit (`DaxRowCountNotSupported`). If that error comes back, add another split point.
+
 ### 3.4 What good output looks like (stop and investigate if not)
 
 - **mk:** `2026-10-xx old N new N row diffs 0` for every older day. Only the last one or two days may differ, because the partial day fills in. `master list 49x`. No `Traceback`.

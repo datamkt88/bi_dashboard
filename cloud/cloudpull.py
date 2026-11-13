@@ -57,7 +57,7 @@ for name in [n for n in names if n not in simple]:
     q = open(f'queries/{name}.dax').read()
     if name == 'list2':   # > 1M values: split by customer id range
         parts = []
-        for lo, hi in ((1750000, 1900000), (1900000, 9999999999)):
+        for lo, hi in ((1750000, 1900000), (1900000, 1940000), (1940000, 9999999999)):   # each part must stay < 62,500 rows (REST API limit)
             qq = q.replace('view_CustomerProfile[CustId]>1750000', f'view_CustomerProfile[CustId]>{lo} && view_CustomerProfile[CustId]<={hi}')
             assert qq != q
             parts.append(save(name, qq))

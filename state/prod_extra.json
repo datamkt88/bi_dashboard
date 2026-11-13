@@ -1,0 +1,3 @@
+{"note": "products / vendors added after the page was first built; appended to pmdata by prodadd.py (appending keeps every stored index valid)",
+ "provs": ["KS88"],
+ "prods": [["KS88 Cockfighting", "Cockfighting"]]}
